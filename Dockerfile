@@ -35,6 +35,9 @@ COPY --chown=www-data:www-data . /var/www
 # Change the ownership of the application directory
 RUN chown -R www-data:www-data /var/www
 
+# Install Composer dependencies
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
 # Update the Apache configuration to use the Laravel public directory
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN sed -i 's!/var/www/html!/var/www/public!g' /etc/apache2/sites-available/000-default.conf /etc/apache2/apache2.conf
