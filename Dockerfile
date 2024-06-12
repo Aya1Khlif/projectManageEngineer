@@ -35,6 +35,10 @@ COPY --chown=www-data:www-data . /var/www
 # Change the ownership of the application directory
 RUN chown -R www-data:www-data /var/www
 
+# Set correct permissions for Laravel directories
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+
 # Install Composer dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
